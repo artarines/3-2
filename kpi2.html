@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КПІ2 Квєткіна Марія ІП-43 UI-елементи</title>
+<style>
+  :root {
+    --bg: #F2F3EF;
+    --surface: #FFFFFF;
+    --ink: #17191B;
+    --ink-soft: #63665C;
+    --border: #DCDED4;
+    --accent: #2A4BD6;
+  }
+  
+  * { box-sizing: border-box; }
+  
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  .wrap {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+  
+  section.item {
+    padding: 30px 0;
+    border-top: 1px solid var(--border);
+  }
+  section.item:first-of-type { 
+    border-top: none; 
+    padding-top: 0; 
+  }
+  
+  h2 {
+    font-size: 20px;
+    margin: 0 0 10px 0;
+  }
+  
+  .item-desc {
+    color: var(--ink-soft);
+    margin: 0 0 20px;
+  }
+  
+  .demo {
+    padding: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+
+  /* form basics */
+  .field-label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .option-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  
+  input[type="text"], select {
+    width: 100%;
+    max-width: 320px;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+
+  /* buttons */
+  .btn-row { 
+    display: flex; 
+    gap: 10px; 
+  }
+  
+  button {
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    background: var(--surface);
+  }
+  .btn-primary { 
+    background: var(--accent); 
+    color: white; 
+    border-color: var(--accent); 
+  }
+
+  /* tabs */
+  .tabs-nav { 
+    display: flex; 
+    gap: 4px; 
+    border-bottom: 1px solid var(--border); 
+    margin-bottom: 15px; 
+  }
+  .tab-btn { 
+    background: none; 
+    border: none; 
+    border-bottom: 2px solid transparent; 
+    border-radius: 0; 
+  }
+  .tab-btn[aria-selected="true"] { 
+    border-bottom-color: var(--accent); 
+    font-weight: bold; 
+  }
+  .tab-panel { display: none; }
+  .tab-panel[data-active="true"] { display: block; }
+
+  /* tooltip */
+  .tooltip-wrap { 
+    position: relative; 
+    display: inline-flex; 
+  }
+  .tooltip-trigger { 
+    width: 24px; 
+    height: 24px; 
+    border-radius: 50%; 
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+  }
+  .tooltip-bubble {
+    position: absolute; 
+    bottom: 100%; 
+    left: 50%; 
+    transform: translateX(-50%);
+    background: var(--ink); 
+    color: white; 
+    padding: 4px 8px; 
+    border-radius: 4px;
+    white-space: nowrap; 
+    font-size: 12px; 
+    opacity: 0; 
+    pointer-events: none;
+  }
+  .tooltip-wrap:hover .tooltip-bubble { opacity: 1; }
+
+  /* data grid */
+  table { 
+    width: 100%; 
+    border-collapse: collapse; 
+  }
+  th, td { 
+    text-align: left; 
+    padding: 8px; 
+    border-bottom: 1px solid var(--border); 
+  }
+  th { 
+    cursor: pointer; 
+    background: var(--surface); 
+  }
+  th .arrow { 
+    color: var(--accent); 
+    font-size: 12px; 
+    margin-left: 4px; 
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 1. Radiobutton -->
+  <section class="item">
+    <h2>1. Radiobutton</h2>
+    <p class="item-desc">дає обрати рівно один варіант із групи взаємовиключних. підходить для тих випадків, де привльний лише один варіант, або необхідно обрати лише щось одне (умовно варіант доставки чи стать)</p>
+    <div class="demo">
+      <span class="field-label">Хто ви?</span>
+      <div class="option-row"><input type="radio" name="delivery" id="d1"><label for="d1">Хом'як</label></div>
+      <div class="option-row"><input type="radio" name="delivery" id="d2"><label for="d2">Пес</label></div>
+      <div class="option-row"><input type="radio" name="delivery" id="d3"><label for="d3">Кіт</label></div>
+    </div>
+  </section>
+
+  <!-- 2. Checkbox -->
+  <section class="item">
+    <h2>2. Checkbox</h2>
+    <p class="item-desc">дає обрати один, кілька або жоден варіант і відповідно кожен вибір незалежний від інших. використовується там, де можна відмітити будь-яку кількість пунктів</p>
+    <div class="demo">
+      <span class="field-label">Ви "хом'як" відмітьте що ви маєте: </span>
+      <div class="option-row"><input type="checkbox" id="c1"><label for="c1">лапи</label></div>
+      <div class="option-row"><input type="checkbox" id="c2"><label for="c2">хвіст</label></div>
+      <div class="option-row"><input type="checkbox" id="c3"><label for="c3">вуха</label></div>
+    </div>
+  </section>
+
+  <!-- 3. Text input -->
+  <section class="item">
+    <h2>3. Text input + 6. Text label</h2>
+    <p class="item-desc"><b>Text input</b> приймає довільний текст, який вводить користувач: ім'я, email, пошуковий запит тощо.</p>
+    <p class="item-desc"><b>Text label</b> - це статичний підпис до цього поля (в мене це - текст "Як вас звати?"). вона не редагується, завжди залишається на екрані та пояснює, які саме дані очікуються.(сірий текст "Бубі Бубенко" всередині - placeholder, тимчасовий приклад, який зникне при вводі)</p>
+    <div class="demo">
+      <label class="label" for="t1">Як вас звати?</label>
+      <input type="text" id="t1" placeholder="Бубі Бубенко">
+    </div>
+  </section>
+  </section>
+
+  <!-- 4. Tabs -->
+  <section class="item">
+    <h2>4.Tabs</h2>
+    <p class="item-desc">вкладками розбивають великий обсяг контенту на групи й показують лише одну групу за раз базова економія місця на екрані + можливість клієнта одразу перейти до потрібного місця.</p>
+    <div class="demo">
+      <div class="tabs-nav" role="tablist">
+        <button class="tab-btn" role="tab" aria-selected="true" data-tab="t1">Портрети</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="t2">Пейзажі</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="t3">Абстракція</button>
+      </div>
+      <div class="tab-panel" data-panel="t1" data-active="true">1 2 3</div>
+      <div class="tab-panel" data-panel="t2">4 5 6</div>
+      <div class="tab-panel" data-panel="t3">7 8 9</div>
+    </div>
+  </section>
+
+  <!-- 5. Button -->
+  <section class="item">
+    <h2>5.Button</h2>
+    <p class="item-desc">кнопка, запускає якусь дію після натискання на неї.</p>
+    <div class="demo">
+      <div class="btn-row">
+        <button class="btn-primary" type="button">надіслати повідомлення</button>
+        <button class="btn-secondary" type="button">скасувати надсилання</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Link -->
+  <section class="item">
+    <h2>7.Link</h2>
+    <p class="item-desc">посилання виконує перенесення користувача на іншу сторінку, розділ сайту чи зовнішній ресурс. на відміну від кнопки, посилання веде кудись, а не виконує дію на місці.</p>
+    <div class="demo">
+      Детальніше про умови користування -- <a href="https://depositphotos.com/ua/photos/baby-%D1%81%D0%BC%D1%96%D1%88%D0%BD%D1%96.html">повний текст угоди</a>.
+    </div>
+  </section>
+
+  <!-- 8. Tooltip -->
+  <section class="item">
+    <h2>8. Спливаюча підказка = Tooltip</h2>
+    <p class="item-desc">показує коротке пояснення елемента лише при наведенні або фокусі - не займає постійного місця на екрані, але доступна, коли потрібна</p>
+    <div class="demo">
+      <span class="field-label" style="display:inline; margin-right: 10px;">Чи є ви з родини хом'ячкових</span>
+      <span class="tooltip-wrap">
+        <button class="tooltip-trigger" type="button" tabindex="0">?</button>
+        <span class="tooltip-bubble">хом'ячкові - родина гризунів</span>
+      </span>
+    </div>
+  </section>
+
+  <!-- 9. Dropdown list -->
+  <section class="item">
+    <h2>9. Dropdown list</h2>
+    <p class="item-desc">дає обрати один варіант зі списку, який прихований, доки список не розкрито</p>
+    <div class="demo">
+      <label class="field-label" for="sel1">Місто</label>
+      <select id="sel1">
+        <option>Київ</option>
+        <option>Львів</option>
+        <option>Одеса</option>
+        <option>Харків</option>
+        <option>Дніпро</option>
+      </select>
+    </div>
+  </section>
+
+  <!-- 10. Data grid -->
+  <section class="item">
+    <h2>10. Data grid</h2>
+    <p class="item-desc">показує структуровані дані рядками й стовпцями</p>
+    <div class="demo">
+      <table id="grid">
+        <thead>
+          <tr>
+            <th>Студент</th>
+            <th>Предмет</th>
+            <th>Оцінка</th>
+            <th>Дата</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Олена</td>
+            <td>Математика</td>
+            <td>92</td>
+            <td>2026-09-02</td>
+          </tr>
+          <tr>
+            <td>Іван</td>
+            <td>Англійська</td>
+            <td>85</td>
+            <td>2026-09-05</td>
+          </tr>
+          <tr>
+            <td>Марія</td>
+            <td>Математика</td>
+            <td>78</td>
+            <td>2026-09-08</td>
+          </tr>
+          <tr>
+            <td>Артем</td>
+            <td>Англійська</td>
+            <td>95</td>
+            <td>2026-09-11</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  // Tabs logic
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const group = btn.closest('.demo');
+      group.querySelectorAll('.tab-btn').forEach(b => b.setAttribute('aria-selected', 'false'));
+      group.querySelectorAll('.tab-panel').forEach(p => p.removeAttribute('data-active'));
+      btn.setAttribute('aria-selected', 'true');
+      group.querySelector('[data-panel="' + btn.dataset.tab + '"]').setAttribute('data-active', 'true');
+    });
+  });
+</script>
+</body>
+</html>
